@@ -7,11 +7,14 @@ You are required to write a script server-stats.sh that can analyse basic server
 * Total CPU usage
 
 the initial think about how analyse the server performance stats is using de tool 'top'
-'''
+
+```
 man top
-'''
+```
+
 about to know the 'Total CPU usage' could to use 'id' time spent in the kernel idle handler that is a percentage
-'''
+
+```
 TASK and CPU States
        This portion consists of a minimum of two lines.  In an SMP
        environment, additional lines can reflect individual CPU state
@@ -66,42 +69,47 @@ TASK and CPU States
 
        See topic 4b. SUMMARY AREA Commands for additional information on
        the ‘t’ and ‘4’ command toggles.
-'''
+```
 
 the option of comand line that is interesting for the current specifications is
 
-'''
+```
 -b, --batch
           Starts top in Batch mode, which could be useful  for  sending  output
           from  top to other programs or to a file.  In this mode, top will not
           accept input and runs until the iterations limit you've set with  the
           `-n' command-line option or until killed.
-'''
+```
 
 using grep to filter the line of stats of CPU
 
-'''
+```
 grep "Cpu(s)" 
-'''
+```
 
 also using sed 
-'''
-man sed
-'''
 
-'''
+```
+man sed
+```
+we use replacement with a regular expresion:
+
+```
 s/regexp/replacement/
               Attempt to match regexp against the pattern space.  If successful, replace that portion matched with replacement.  The replacement may contain the special character & to
               refer to that portion of the pattern space which matched, and the special escapes \1 through \9 to refer to the corresponding matching sub-expressions in the regexp.
-'''
+```
 de regular expresion that we use to catch the Idle cpu is:
-'''
+
+```
  ".* \([0-9,]*\)%* id.*"
-'''
+```
+
 We have to take into account the notation that the decimal number has, whether with "," or with "."
 
+```
 top -bn1 | grep "Cpu(s)" | sed -n 's/.* \([0-9,]*\)%* id.*/\1/p' | awk '{print 100 - $1}'
-
+```
 
 * Total memory usage (Free vs Used including percentage)
 
