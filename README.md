@@ -112,14 +112,84 @@ top -bn1 | grep "Cpu(s)" | sed -n 's/.* \([0-9,]*\)%* id.*/\1/p' | awk '{print 1
 ```
 
 * Total memory usage (Free vs Used including percentage)
-
-
-
-
+to memory we will use free that displays  the  total  amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo.
+I use 
+```
+free -m | awk '/^Mem:/ {mem_total=$2; mem_available=$7} /^Inter:/ {inter_total=$2} END {print "Memoria Total :", mem_total + inter_total, "MB"; print "Memoria Libre (available):", mem_available, "MB"}
+```
 
 * Total disk usage (Free vs Used including percentage)
+Using df 
+
+```
+df -h --total | awk '/^total/ {printf "Total disk: %s\nUsed disk: %s (%.2f%%)\nFree disk: %s (%.2f%%)\n", $2, $3, ($3/$2)*100, $4, ($4/$2)*100}'
+```
+
 * Top 5 processes by CPU usage
+for to processes we will use "ps"
+
+```
+man ps
+```
+
+```
+-e     Select all processes.
+
+-o format
+              User-defined format.  format is a single argument in the form of a blank-separated or comma-separated list, which offers a way to specify individual output columns.  The
+              recognized keywords are described in the STANDARD FORMAT SPECIFIERS section below.  Headers may be renamed (ps -o pid,ruser=RealUser -o comm=Command) as desired.  If all
+              column headers are empty (ps -o pid= -o comm=) then the header line will not be output.  Column width will increase as needed for wide headers; this may be used to widen
+              up columns such as WCHAN (ps -o pid,wchan=WIDE-WCHAN-COLUMN -o comm).  Explicit width control (ps opid,wchan:42,cmd) is offered too.  The behavior of ps -o  pid=X,comm=Y
+              varies  with  personality;  output  may  be  one  column  named  "X,comm=Y"  or two columns named "X" and "Y".  Use multiple -o options when in doubt.  Use the PS_FORMAT
+              environment variable to specify a default as desired; DefSysV and DefBSD are macros that may be used to choose the default UNIX or BSD columns.
+
+
+--sort spec
+              Specify sorting order.  Sorting syntax is [+|-]key[,[+|-]key[,...]].  Choose a multi-letter key from the STANDARD FORMAT SPECIFIERS section.  The "+" is  optional  since
+              default direction is increasing numerical or lexicographic order.  Identical to k.  For example: ps jax --sort=uid,-ppid,+pid
+
+
+%cpu        %CPU      cpu  utilization  of  the process in "##.#" format.  Currently, it is the CPU time used divided by the time the process has been running (cputime/realtime
+                             ratio), expressed as a percentage.  It will not add up to 100% unless you are lucky.  (alias pcpu).
+
+comm        COMMAND   command  name  (only  the executable name).  The output in this column may contain spaces.  (alias ucmd, ucomm).  See also the args format keyword, the -f
+                             option, and the c option.
+                             When specified last, this column will extend to the edge of the display.  If ps can not determine display width, as when output is redirected (piped) into
+                             a file or another command, the output width is undefined (it may be 80, unlimited, determined by the TERM variable, and so on).  The  COLUMNS  environment
+                             variable or --cols option may be used to exactly determine the width in this case.  The w or -w option may be also be used to adjust width.
+
+                          
+pid         PID       a number representing the process ID (alias tgid).
+```
+
+To obtein the Top 5 only have to use head
+
+```
+man head
+```
+
+```
+Print the first 10 lines of each FILE to standard output.  With more than one FILE, precede each with a header giving the file name.
+
+-n, --lines=[-]NUM
+              print the first NUM lines instead of the first 10; with the leading '-', print all but the last NUM lines of each file
+
+```
+the format output use awk using the fisrt line "header" (NR current record number in the total input stream.) and PID,PROCESS,%USE_CPU 
+
+
+```
+ps -eo pid,comm,%cpu --sort=-%cpu | head -n 6 | awk 'NR==1 {print; next} {printf "PID: %-6s PROCESS: %-20s USE_CPU: %.2f%%\n", $1, $2, $3}'
+```
+
 * Top 5 processes by memory usage
+Like de top five of cpu but changing %cpu to %mem
+
+```
+ps -eo pid,comm,%mem --sort=-%mem | head -n 6 | awk 'NR==1 {print; next} {printf "PID: %-6s PROCESS: %-20s USE_MEM: %.2f%%\n", $1, $2, $3}'
+```
+
+
 Stretch goal: Feel free to optionally add more stats such as os version, uptime, load average, logged in users, failed login attempts etc.
 
 
