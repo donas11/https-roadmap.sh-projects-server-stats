@@ -210,13 +210,11 @@ uptime | awk -F'load average:' '{print "Load average(1 min, 5 min, 15 min):" $2}
 ```
 #### failed login attempts
 ```
-cat /var/log/auth.log
+grep "failed password" /var/log/auth.log
+or
+grep "failed password" /var/log/secure 
 ```
 
 
-```
-#!/bin/bash
 
-
-```
 
