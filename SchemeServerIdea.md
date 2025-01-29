@@ -14,7 +14,7 @@ graph TD;
         N["🚀 Nginx"];
     end
 
-    C -->|📡 Conexión SSH/API| S1;
-    C -->|📡 Conexión SSH/API| S2;
-    C -->|📡 Conexión SSH/API| S3;
+    C -->|📡 Conexión SSH| S1;
+    C -->|📡 Conexión SSH| S2;
+    C -->|📡 Conexión SSH| S3;
     C -->|📤 Envío de Datos| N;
