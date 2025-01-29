@@ -1,3 +1,4 @@
+```mermaid
 graph TD;
     subgraph Servidores_Remotos["🖥️ Servidores Remotos"]
         S1["💻 Server 1"];
