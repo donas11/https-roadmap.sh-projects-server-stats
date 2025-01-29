@@ -4,7 +4,7 @@ Goal of this project is to write a script to analyse server performance stats.
 Requirements
 You are required to write a script server-stats.sh that can analyse basic server performance stats. You should be able to run the script on any Linux server and it should give you the following stats:
 
-* Total CPU usage
+### Total CPU usage
 
 the initial think about how analyse the server performance stats is using de tool 'top'
 
@@ -111,21 +111,21 @@ We have to take into account the notation that the decimal number has, whether w
 top -bn1 | grep "Cpu(s)" | sed -n 's/.* \([0-9,]*\)%* id.*/\1/p' | awk '{print 100 - $1}'
 ```
 
-* Total memory usage (Free vs Used including percentage)
+### Total memory usage (Free vs Used including percentage)
 to memory we will use free that displays  the  total  amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo.
 I use 
 ```
 free -m | awk '/^Mem:/ {mem_total=$2; mem_available=$7} /^Inter:/ {inter_total=$2} END {print "Memoria Total :", mem_total + inter_total, "MB"; print "Memoria Libre (available):", mem_available, "MB"}
 ```
 
-* Total disk usage (Free vs Used including percentage)
+### Total disk usage (Free vs Used including percentage)
 Using df 
 
 ```
 df -h --total | awk '/^total/ {printf "Total disk: %s\nUsed disk: %s (%.2f%%)\nFree disk: %s (%.2f%%)\n", $2, $3, ($3/$2)*100, $4, ($4/$2)*100}'
 ```
 
-* Top 5 processes by CPU usage
+### Top 5 processes by CPU usage
 for to processes we will use "ps"
 
 ```
@@ -182,7 +182,7 @@ the format output use awk using the fisrt line "header" (NR current record numbe
 ps -eo pid,comm,%cpu --sort=-%cpu | head -n 6 | awk 'NR==1 {print; next} {printf "PID: %-6s PROCESS: %-20s USE_CPU: %.2f%%\n", $1, $2, $3}'
 ```
 
-* Top 5 processes by memory usage
+### Top 5 processes by memory usage
 Like de top five of cpu but changing %cpu to %mem
 
 ```
@@ -190,10 +190,28 @@ ps -eo pid,comm,%mem --sort=-%mem | head -n 6 | awk 'NR==1 {print; next} {printf
 ```
 
 
-Stretch goal: Feel free to optionally add more stats such as os version, uptime, load average, logged in users, failed login attempts etc.
-
-
-
+### Stretch goal: Feel free to optionally add more stats such as 
+ to this part optionally we will use the tools uptime,who and the files ***/etc/os-release*** , ***/var/log/auth.log*** and ***/var/log/secure***
+#### os version: 
+```
+cat /etc/os-release
+```
+#### uptime 
+```
+uptime | awk '{print $1}'
+```
+#### load average 
+```
+uptime | awk -F'load average:' '{print "Load average(1 min, 5 min, 15 min):" $2}'
+```
+#### logged in users
+```
+ who | awk '{printf "User: %-10s Terminal: %-10s Time: %-10s\n", $1, $2, $3}'
+```
+#### failed login attempts
+```
+cat /var/log/auth.log
+```
 
 
 ```
