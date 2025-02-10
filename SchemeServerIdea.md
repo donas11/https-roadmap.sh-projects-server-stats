@@ -1,20 +1,47 @@
+# Organización idea de probarlo en Terraform
+
 ```mermaid
 graph TD;
-    subgraph Servidores_Remotos["🖥️ Servidores Remotos"]
-        S1["💻 Server 1"];
-        S2["💻 Server 2"];
-        S3["💻 Server 3"];
+    subgraph Servidor["🖥️ Servidores"]
+        S1["💻 Ubuntu"];
+        S2["💻 Alpine"];
     end
 
-    subgraph Docker_Container["🐳 Docker Container"]
-        C["📦 Ubuntu + ⏳ CronJob"];
+    subgraph Scripts[" 📝 Scripts"]
+        F1["📄 server-stats.sh "];
+        F2["📄 server-statsv2.sh "];
+    end
+
+    subgraph Persist_volumen_IN[" 📂 PV"]
+        I1["📄 server-stats.sh "];
+        I2["📄 server-statsv2.sh "];
+    end
+
+        subgraph Persist_volumen_out[" 📂 PV"]
+        O["📄 stats.html "];
     end
 
     subgraph Nginx_Server["🌐 Servidor Nginx"]
         N["🚀 Nginx"];
     end
 
-    C -->|📡 Conexión SSH| S1;
-    C -->|📡 Conexión SSH| S2;
-    C -->|📡 Conexión SSH| S3;
-    C -->|📤 Envío de Datos| N;
+    F1 -->|📋Copy| S1 
+    S1 -->|⏳Ejecuta script| O
+    O -->|💻 Muestra script.local:32993/stats.html |
+
+    F1 -->|📋Copy| S2 
+    S2 -->|⏳Ejecuta script ❌| O
+    O -->|💻 Muestra script.local:32993/stats.html |
+
+    F2 -->|📋Copy| S1 
+    S1 -->|⏳Ejecuta script| O
+    O -->|💻 Muestra script.local:32993/stats.html |
+
+    F2 -->|📋Copy| S2 
+    S2 -->|⏳Ejecuta script| O
+    O -->|💻 Muestra script.local:32993/stats.html |
+
+
+```
+
+La idea principal es ejecutar el script en Ubuntu y Alpine con la versión 1 no funciona en BusyBox por eso se crea la versión 2 mejorada
