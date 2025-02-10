@@ -50,18 +50,3 @@ graph TD;
 La idea principal es ejecutar el script en Ubuntu y Alpine con la versión 1 no funciona en BusyBox por eso se crea la versión 2 mejorada
 
 
-```mermaid
-graph TD;
-    
-    subgraph Docker["🐳 Docker"]
-        Ubuntu["💻 Ubuntu"]
-        Nginx["🌐 Nginx"]
-        MySQL["🗄️ MySQL"]
-    end
-
-    Dockerfile["📄 Dockerfile"] -->|⚙️ Build| Ubuntu
-    Dockerfile -->|⚙️ Build| Nginx
-    Dockerfile -->|⚙️ Build| MySQL
-
-    DockerCompose["📄 docker-compose.yml"] -->|🚀 Levanta contenedores| Dockerfile
-```
