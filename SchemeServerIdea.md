@@ -66,6 +66,11 @@ graph TD;
 
     subgraph Nginx_Server["🌐 Servidor Nginx"]
         N["🚀 Nginx"];
+    end
+
+    
+    subgraph Navegador["💻  Resultado"]
+        E["💻 Navegador"];
     end;
 
     %% Copia los scripts a los servidores
@@ -80,6 +85,6 @@ graph TD;
 
     %% Nginx muestra la página
     O -->|💻 Muestra| N
-    N -->|🔗 script.local:32993/stats.html|
+    N -->|🔗 script.local:32993/stats.html|E
 
 ```
