@@ -63,5 +63,5 @@ graph TD;
     Dockerfile -->|⚙️ Build| Nginx
     Dockerfile -->|⚙️ Build| MySQL
 
-    DockerCompose["📄 docker-compose.yml"] -->|🚀 Levanta contenedores| Docker
+    DockerCompose["📄 docker-compose.yml"] -->|🚀 Levanta contenedores| Dockerfile
 ```
