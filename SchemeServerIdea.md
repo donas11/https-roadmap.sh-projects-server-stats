@@ -43,9 +43,7 @@ graph TD;
 La idea principal es ejecutar el script en Ubuntu y Alpine con la versión 1 no funciona en BusyBox por eso se crea la versión 2 mejorada
 
 
-
-```
-
+```mermaid
 graph TD;
     subgraph Servidor["🖥️ Servidores"]
         S1["💻 Ubuntu"];
