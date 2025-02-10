@@ -19,23 +19,30 @@ graph TD;
 
     subgraph Nginx_Server["🌐 Servidor Nginx"]
         N["🚀 Nginx"];
+    end
+
+     subgraph Navegador["💻  Resultado"]
+        E["💻 Navegador"];
     end;
 
     F1 -->|📋Copy| S1 
-    S1 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |N
+    S1 -->|⏳Ejecuta scriptv1| O
 
     F1 -->|📋Copy| S2 
-    S2 -->|⏳Ejecuta script ❌| O
-    O -->|💻 Muestra script.local:32993/stats.html |N
+    S2 -->|⏳Ejecuta scriptv1 ❌| O
 
     F2 -->|📋Copy| S1 
-    S1 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |N
+    S1 -->|⏳Ejecuta scriptv2| O
+    
 
     F2 -->|📋Copy| S2 
-    S2 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |N
+    S2 -->|⏳Ejecuta scriptv2| O
+    
+
+
+    O -->|💻 Muestra| N
+    N -->|🔗 script.local:32993/stats.html|E
+
 
 
 ```
@@ -69,9 +76,7 @@ graph TD;
     end
 
     
-    subgraph Navegador["💻  Resultado"]
-        E["💻 Navegador"];
-    end;
+   
 
     %% Copia los scripts a los servidores
     F1 -->|📋 Copia| S1 
