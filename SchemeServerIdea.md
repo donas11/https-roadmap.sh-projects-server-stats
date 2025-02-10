@@ -7,18 +7,18 @@ graph TD;
         S2["💻 Alpine"];
     end
 
-    subgraph Scripts[" 📝 Scripts"]
-        F1["📄 server-stats.sh "];
-        F2["📄 server-statsv2.sh "];
+    subgraph Scripts["📝Scripts"]
+        F1["📄server-stats.sh "];
+        F2["📄server-statsv2.sh "];
     end
 
-    subgraph Persist_volumen_IN[" 📂 PV"]
-        I1["📄 server-stats.sh "];
-        I2["📄 server-statsv2.sh "];
+    subgraph Persist_volumen_IN["📂PV"]
+        I1["📄server-stats.sh "];
+        I2["📄server-statsv2.sh "];
     end
 
-        subgraph Persist_volumen_out[" 📂 PV"]
-        O["📄 stats.html "];
+        subgraph Persist_volumen_out["📂PV"]
+        O["📄stats.html "];
     end
 
     subgraph Nginx_Server["🌐 Servidor Nginx"]
