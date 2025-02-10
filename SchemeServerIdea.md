@@ -9,8 +9,8 @@ graph TD;
 
     subgraph Scripts["📝Scripts"]
         subgraph Persist_volumen_IN["📂PV"]
-            I1["📄server-stats.sh "];
-            I2["📄server-statsv2.sh "];
+            F1["📄server-stats.sh "];
+            F2["📄server-statsv2.sh "];
         end
     end
         subgraph Persist_volumen_out["📂PV"]
