@@ -23,7 +23,7 @@ graph TD;
 
     subgraph Nginx_Server["🌐 Servidor Nginx"]
         N["🚀 Nginx"];
-    end
+    end;
 
     F1 -->|📋Copy| S1 
     S1 -->|⏳Ejecuta script| O
