@@ -1,6 +1,13 @@
 # https-roadmap.sh-projects-server-stats
 Goal of this project is to write a script to analyse server performance stats.
 
+# [project page URL](https://roadmap.sh/projects/server-stats)  How to run  
+```
+chmod +x ./serverstatsv2.sh
+./serverstatsv2.sh
+
+```
+
 Requirements
 You are required to write a script server-stats.sh that can analyse basic server performance stats. You should be able to run the script on any Linux server and it should give you the following stats:
 
