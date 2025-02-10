@@ -27,19 +27,19 @@ graph TD;
 
     F1 -->|📋Copy| S1 
     S1 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |
+    O -->|💻 Muestra script.local:32993/stats.html |N
 
     F1 -->|📋Copy| S2 
     S2 -->|⏳Ejecuta script ❌| O
-    O -->|💻 Muestra script.local:32993/stats.html |
+    O -->|💻 Muestra script.local:32993/stats.html |N
 
     F2 -->|📋Copy| S1 
     S1 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |
+    O -->|💻 Muestra script.local:32993/stats.html |N
 
     F2 -->|📋Copy| S2 
     S2 -->|⏳Ejecuta script| O
-    O -->|💻 Muestra script.local:32993/stats.html |
+    O -->|💻 Muestra script.local:32993/stats.html |N
 
 
 ```
