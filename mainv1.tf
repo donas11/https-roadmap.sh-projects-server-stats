@@ -175,6 +175,9 @@ resource "kubernetes_deployment_v1" "web_server" {
             name       = "output-volume"
             mount_path = "/usr/share/nginx/html"
           }
+          port{
+            container_port = 80  
+          }
         }
 
         volume {
@@ -207,7 +210,7 @@ resource "kubernetes_service" "web_service" {
       port        = 80
       target_port = 80
     }
-    type = "LoadBalancer"
+    type = "LoadBalancer"  # Lo dejo en LoadBalancer aunque en mi Local utilicé Nodeport
   }
 }
 
